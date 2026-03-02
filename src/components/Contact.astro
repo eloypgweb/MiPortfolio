@@ -61,6 +61,7 @@
         </div>
       </div>
       
+      <!-- Formulario comentado - Funcionalidad no implementada
       <form class="contact-form" id="contact-form">
         <div class="form-group">
           <label for="name" class="form-label" data-i18n="contact.formName">Nombre</label>
@@ -108,6 +109,7 @@
           </svg>
         </button>
       </form>
+      -->
     </div>
   </div>
 </section>
@@ -143,9 +145,13 @@
   }
   
   .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: var(--spacing-lg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contact-info {
+    max-width: 600px;
   }
   
   .contact-info-title {
@@ -209,7 +215,7 @@
     color: var(--text-primary);
   }
   
-  /* Formulario */
+  /* Formulario - Estilos comentados (funcionalidad no implementada)
   .contact-form {
     background-color: var(--bg-secondary);
     padding: var(--spacing-md);
@@ -276,13 +282,7 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 25px var(--shadow);
   }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .contact-content {
-      grid-template-columns: 1fr;
-    }
-  }
+  */
 </style>
 
 <script>
@@ -328,6 +328,8 @@
     });
   }
   
+  // Funcionalidad del formulario comentada (no implementada)
+  /*
   function setupContactForm() {
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
@@ -345,13 +347,14 @@
       });
     }
   }
+  */
   
   updateTranslations();
-  setupContactForm();
+  // setupContactForm();
   
   document.addEventListener('astro:page-load', () => {
     updateTranslations();
-    setupContactForm();
+    // setupContactForm();
   });
   
   window.addEventListener('languageChanged', updateTranslations);
