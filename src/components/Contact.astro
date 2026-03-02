@@ -1,0 +1,358 @@
+---
+// Componente Contact - Sección de contacto
+---
+
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="contact.title">Contacto</h2>
+      <div class="section-underline"></div>
+      <p class="section-description" data-i18n="contact.description">
+        ¿Te llama la atención lo que ves? ¡Hablemos!
+      </p>
+    </div>
+    
+    <div class="contact-content">
+      <div class="contact-info">
+        <h3 class="contact-info-title" data-i18n="contact.connectTitle">Contacta conmigo</h3>
+        <p class="contact-info-text" data-i18n="contact.connectText">
+          Siempre estoy abierto a descubrir nuevos mundos y oportunidades.
+        </p>
+        
+        <div class="contact-methods">
+          <a href="mailto:eloypg.web@gmail.com" class="contact-method">
+            <div class="method-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="method-info">
+              <span class="method-label" data-i18n="contact.email">Email</span>
+              <span class="method-value">eloypg.web@gmail.com</span>
+            </div>
+          </a>
+          
+          <a href="https://es.linkedin.com/in/eloy-perez-gomez" target="_blank" rel="noopener noreferrer" class="contact-method">
+            <div class="method-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+            <div class="method-info">
+              <span class="method-label" data-i18n="contact.linkedin">LinkedIn</span>
+              <span class="method-value" data-i18n="contact.linkedinValue">Visita mi Linkedin</span>
+            </div>
+          </a>
+          
+          <a href="https://github.com/eloypgweb" target="_blank" rel="noopener noreferrer" class="contact-method">
+            <div class="method-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </div>
+            <div class="method-info">
+              <span class="method-label" data-i18n="contact.github">GitHub</span>
+              <span class="method-value" data-i18n="contact.githubValue">Mi GitHub</span>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <form class="contact-form" id="contact-form">
+        <div class="form-group">
+          <label for="name" class="form-label" data-i18n="contact.formName">Nombre</label>
+          <input 
+            id="name" 
+            name="name" 
+            class="form-input" 
+            required 
+            data-placeholder-i18n="contact.formNamePlaceholder"
+            placeholder="Tu nombre"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="form-label" data-i18n="contact.formEmail">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-input" 
+            required 
+            data-placeholder-i18n="contact.formEmailPlaceholder"
+            placeholder="tu@email.com"
+          />
+        </div>
+        
+        <div class="form-group">
+          <label for="message" class="form-label" data-i18n="contact.formMessage">Mensaje</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            class="form-textarea" 
+            rows="5" 
+            required 
+            data-placeholder-i18n="contact.formMessagePlaceholder"
+            placeholder="Tu mensaje..."
+          ></textarea>
+        </div>
+        
+        <button type="submit" class="form-submit">
+          <span data-i18n="contact.sendMessage">Enviar mensaje</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background-color: var(--bg-primary);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .section-title {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .section-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+  
+  .section-description {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: var(--text-md);
+  }
+  
+  .contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .contact-info-title {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .contact-info-text {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .contact-method {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+  }
+  
+  .contact-method:hover {
+    border-color: var(--accent);
+    transform: translateX(8px);
+  }
+  
+  .method-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-md);
+    color: var(--accent);
+  }
+  
+  .method-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .method-label {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  
+  .method-value {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+  
+  /* Formulario */
+  .contact-form {
+    background-color: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+  
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+  
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: 0.875rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    transition: var(--transition);
+  }
+  
+  .form-input:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+  }
+  
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .form-submit {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .form-submit:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px var(--shadow);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contact-content {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { translations } from '../i18n/translations';
+  
+  function updateTranslations() {
+    const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+    
+    // Actualizar textos
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (key) {
+        const keys = key.split('.');
+        let value: any = translations[lang];
+        
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        
+        if (value) {
+          element.textContent = value;
+        }
+      }
+    });
+    
+    // Actualizar placeholders
+    const placeholderElements = document.querySelectorAll('[data-placeholder-i18n]');
+    placeholderElements.forEach(element => {
+      const key = element.getAttribute('data-placeholder-i18n');
+      if (key) {
+        const keys = key.split('.');
+        let value: any = translations[lang];
+        
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        
+        if (value && element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+          element.placeholder = value;
+        }
+      }
+    });
+  }
+  
+  function setupContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+    
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Aquí puedes agregar la lógica para enviar el formulario
+        // Por ejemplo, usando fetch a un endpoint o un servicio como Formspree
+        
+        const message = translations[lang].contact.successMessage;
+        alert(message);
+        form.reset();
+      });
+    }
+  }
+  
+  updateTranslations();
+  setupContactForm();
+  
+  document.addEventListener('astro:page-load', () => {
+    updateTranslations();
+    setupContactForm();
+  });
+  
+  window.addEventListener('languageChanged', updateTranslations);
+</script>

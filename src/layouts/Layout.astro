@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Mi Portfolio - Desarrollador Web',
+  description = 'Portfolio profesional de desarrollo web. Proyectos, habilidades y experiencia.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  
+  <title>{title}</title>
+</head>
+<body>
+  <slot />
+  
+  <script is:inline>
+    // Inicializar tema desde localStorage o detectar preferencia del sistema
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+    
+    // Ejecutar inmediatamente para evitar flash
+    initTheme();
+    
+    // Listener para cambios de tema
+    document.addEventListener('astro:page-load', initTheme);
+  </script>
+</body>
+</html>

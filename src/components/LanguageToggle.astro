@@ -1,0 +1,135 @@
+---
+// Componente LanguageToggle para cambiar entre español e inglés
+---
+
+<button class="language-toggle" id="language-toggle" aria-label="Cambiar idioma">
+  <span class="lang-text">ES</span>
+</button>
+
+<style>
+  .language-toggle {
+    position: relative;
+    min-width: 50px;
+    height: 44px;
+    padding: 0 1rem;
+    border: 1px solid var(--border);
+    background-color: transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+    overflow: hidden;
+  }
+  
+  [data-theme="dark"] .language-toggle {
+    color: var(--text-secondary);
+  }
+  
+  .language-toggle:hover {
+    border-color: var(--accent);
+    background-color: var(--bg-secondary);
+    color: var(--accent);
+    transform: scale(1.05);
+  }
+  
+  .language-toggle:active {
+    transform: scale(0.95);
+  }
+  
+  .lang-text {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Efecto de cambio de idioma */
+  .language-toggle.changing .lang-text {
+    animation: langSwitch 0.4s ease-in-out;
+  }
+  
+  @keyframes langSwitch {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-10px) scale(0.8);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Efecto de brillo sutil al hacer hover */
+  .language-toggle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .language-toggle:hover::before {
+    opacity: 0.05;
+  }
+</style>
+
+<script>
+  function setupLanguageToggle() {
+    const toggle = document.getElementById('language-toggle') as HTMLButtonElement;
+    if (!toggle) return;
+    
+    const langText = toggle.querySelector('.lang-text');
+    if (!langText) return;
+    
+    // Obtener idioma guardado o usar español por defecto
+    const savedLang = localStorage.getItem('language') || 'es';
+    langText.textContent = savedLang.toUpperCase();
+    
+    toggle.addEventListener('click', () => {
+      // Obtener idioma actual
+      const currentLang = localStorage.getItem('language') || 'es';
+      
+      // Alternar idioma
+      const newLang = currentLang === 'es' ? 'en' : 'es';
+      
+      // Añadir clase de animación
+      toggle.classList.add('changing');
+      
+      // Cambiar el texto después de la mitad de la animación
+      setTimeout(() => {
+        langText.textContent = newLang.toUpperCase();
+      }, 200);
+      
+      // Remover clase de animación
+      setTimeout(() => {
+        toggle.classList.remove('changing');
+      }, 400);
+      
+      // Guardar nuevo idioma
+      localStorage.setItem('language', newLang);
+      
+      // Emitir evento personalizado para actualizar contenido
+      window.dispatchEvent(new CustomEvent('languageChanged', { 
+        detail: { lang: newLang } 
+      }));
+      
+      // Recargar página para aplicar cambios
+      window.location.reload();
+    });
+  }
+  
+  setupLanguageToggle();
+  document.addEventListener('astro:page-load', setupLanguageToggle);
+</script>

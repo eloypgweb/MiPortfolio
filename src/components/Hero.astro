@@ -1,0 +1,279 @@
+---
+// Componente Hero - Sección principal de introducción
+---
+
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-greeting" data-i18n="hero.greeting">Hola, soy</p>
+        <h1 class="hero-title">
+          <span class="gradient-text" data-i18n="hero.name">Eloy Pérez</span>
+        </h1>
+        <h2 class="hero-subtitle" data-i18n="hero.role">Desarrollador Web Full Stack</h2>
+        <p class="hero-description" data-i18n="hero.description">
+          Creando experiencias web excepcionales con tecnologías modernas. 
+          Especializado en desarrollo frontend y backend, con pasión por el diseño limpio y el código eficiente.
+        </p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn btn-primary" data-i18n="hero.viewProjects">Ver Proyectos</a>
+          <a href="#contact" class="btn btn-secondary" data-i18n="hero.contactMe">Contactar</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-decoration">
+          <div class="decoration-circle"></div>
+          <div class="decoration-dots"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <polyline points="19 12 12 19 5 12"></polyline>
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 70px;
+    overflow: hidden;
+  }
+  
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+  
+  .hero-text {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  .hero-greeting {
+    color: var(--accent);
+    font-size: var(--text-md);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+  }
+  
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.1;
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .hero-description {
+    font-size: var(--text-md);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    max-width: 540px;
+    line-height: 1.8;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+  }
+  
+  .btn-primary {
+    background-color: var(--accent);
+    color: white;
+    padding: 0.875rem 2rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    display: inline-block;
+    transition: var(--transition);
+    border: 2px solid var(--accent);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px var(--shadow);
+  }
+  
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--accent);
+    padding: 0.875rem 2rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    display: inline-block;
+    transition: var(--transition);
+    border: 2px solid var(--accent);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  /* Hero decoration */
+  .hero-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+  
+  .hero-decoration {
+    position: relative;
+    width: 400px;
+    height: 400px;
+  }
+  
+  .decoration-circle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+  }
+  
+  .decoration-circle::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 60px;
+    height: 60px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 30px var(--accent);
+  }
+  
+  .decoration-dots {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .decoration-dots::before,
+  .decoration-dots::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  
+  .decoration-dots::before {
+    bottom: 20%;
+    left: 15%;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .decoration-dots::after {
+    top: 30%;
+    left: 80%;
+    animation: float 3s ease-in-out infinite 1.5s;
+  }
+  
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--accent);
+    animation: bounce 2s infinite;
+    cursor: pointer;
+  }
+  
+  /* Animaciones */
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    
+    .hero-description {
+      max-width: 100%;
+    }
+    
+    .hero-buttons {
+      justify-content: center;
+    }
+    
+    .hero-image {
+      order: -1;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .hero-decoration {
+      width: 250px;
+      height: 250px;
+    }
+    
+    .decoration-circle::before {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .decoration-dots::before,
+    .decoration-dots::after {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>

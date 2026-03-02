@@ -1,0 +1,202 @@
+---
+// Componente Skills - Sección de habilidades técnicas
+interface Skill {
+  name: string;
+  icon: string;
+  category: string;
+}
+
+const skills: Skill[] = [
+  { name: "HTML5", icon: "🌐", category: "Frontend" },
+  { name: "CSS3", icon: "🎨", category: "Frontend" },
+  { name: "JavaScript", icon: "⚡", category: "Frontend" },
+  { name: "TypeScript", icon: "📘", category: "Frontend" },
+  { name: "React", icon: "⚛️", category: "Frontend" },
+  { name: "Vue.js", icon: "💚", category: "Frontend" },
+  { name: "Astro", icon: "🚀", category: "Frontend" },
+  { name: "Node.js", icon: "🟢", category: "Backend" },
+  { name: "Express", icon: "🚂", category: "Backend" },
+  { name: "MongoDB", icon: "🍃", category: "Backend" },
+  { name: "PostgreSQL", icon: "🐘", category: "Backend" },
+  { name: "Git", icon: "📦", category: "Tools" },
+  { name: "Docker", icon: "🐳", category: "Tools" },
+  { name: "Figma", icon: "🎯", category: "Tools" }
+];
+
+const categories = [...new Set(skills.map(skill => skill.category))];
+---
+
+<section class="skills" id="skills">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="skills.title">Habilidades</h2>
+      <div class="section-underline"></div>
+      <p class="section-description" data-i18n="skills.description">
+        Tecnologías y herramientas con las que suelo trabajar (o he trabajado).
+      </p>
+    </div>
+    
+    <div class="skills-container">
+      {categories.map((category) => {
+        const categoryKey = category.toLowerCase();
+        return (
+          <div class="skills-category">
+            <h3 class="category-title" data-i18n={`skills.categories.${categoryKey}`}>{category}</h3>
+            <div class="skills-grid">
+              {skills
+                .filter((skill) => skill.category === category)
+                .map((skill) => (
+                  <div class="skill-card">
+                    <span class="skill-icon">{skill.icon}</span>
+                    <span class="skill-name">{skill.name}</span>
+                  </div>
+                ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills {
+    background-color: var(--bg-secondary);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .section-title {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .section-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+  
+  .section-description {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: var(--text-md);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .skills-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .skills-category {
+    background-color: var(--bg-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+  
+  .category-title {
+    font-size: var(--text-lg);
+    color: var(--accent);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+  }
+  
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--spacing-sm);
+  }
+  
+  .skill-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    cursor: default;
+    min-height: 100px;
+  }
+  
+  .skill-card:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: var(--accent);
+    box-shadow: 0 10px 25px var(--shadow);
+  }
+  
+  .skill-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-xs);
+    display: block;
+  }
+  
+  .skill-name {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    }
+    
+    .skill-card {
+      padding: var(--spacing-sm);
+      min-height: 80px;
+    }
+    
+    .skill-icon {
+      font-size: 2rem;
+    }
+    
+    .skill-name {
+      font-size: var(--text-xs);
+    }
+  }
+</style>
+
+<script>
+  import { translations } from '../i18n/translations';
+  
+  function updateTranslations() {
+    const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (key) {
+        const keys = key.split('.');
+        let value: any = translations[lang];
+        
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        
+        if (value) {
+          element.textContent = value;
+        }
+      }
+    });
+  }
+  
+  updateTranslations();
+  document.addEventListener('astro:page-load', updateTranslations);
+  window.addEventListener('languageChanged', updateTranslations);
+</script>

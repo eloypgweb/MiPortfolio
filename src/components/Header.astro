@@ -1,0 +1,270 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import LanguageToggle from './LanguageToggle.astro';
+---
+
+<header class="header">
+  <nav class="nav container">
+    <a href="/" class="logo">
+      <span class="logo-bracket">&lt;</span>
+      <span class="logo-text">EloyPérez</span>
+      <span class="logo-bracket">/&gt;</span>
+    </a>
+    
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-list">
+        <li><a href="#about" class="nav-link" data-i18n="nav.about">Sobre mí</a></li>
+        <li><a href="#projects" class="nav-link" data-i18n="nav.projects">Proyectos</a></li>
+        <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Habilidades</a></li>
+        <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contacto</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-actions">
+      <LanguageToggle />
+      <ThemeToggle />
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background-color: rgba(248, 250, 252, 0.95);
+  }
+  
+  [data-theme="dark"] .header {
+    background-color: #1e293b;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #1e293b;
+    transition: var(--transition);
+  }
+  
+  [data-theme="dark"] .logo {
+    color: var(--text-primary);
+  }
+  
+  .logo:hover {
+    color: var(--accent);
+  }
+  
+  .logo-bracket {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-md);
+    align-items: center;
+  }
+  
+  .nav-link {
+    color: #1e293b;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: var(--transition);
+  }
+  
+  [data-theme="dark"] .nav-link {
+    color: var(--text-secondary);
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: var(--accent);
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .hamburger {
+    position: relative;
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: var(--transition);
+  }
+  
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-primary);
+    transition: var(--transition);
+  }
+  
+  .hamburger::before {
+    top: -8px;
+  }
+  
+  .hamburger::after {
+    bottom: -8px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-toggle {
+      display: flex;
+    }
+    
+    .nav-menu {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      width: 100%;
+      height: calc(100vh - 70px);
+      background-color: var(--bg-primary);
+      transition: right 0.3s ease;
+      border-top: 1px solid var(--border);
+    }
+    
+    .nav-menu.active {
+      right: 0;
+    }
+    
+    .nav-list {
+      flex-direction: column;
+      padding: var(--spacing-md);
+      gap: 0;
+    }
+    
+    .nav-list li {
+      width: 100%;
+    }
+    
+    .nav-link {
+      display: block;
+      padding: var(--spacing-sm);
+      font-size: var(--text-md);
+    }
+    
+    .nav-toggle.active .hamburger {
+      background-color: transparent;
+    }
+    
+    .nav-toggle.active .hamburger::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    
+    .nav-toggle.active .hamburger::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  import { translations } from '../i18n/translations';
+  
+  function setupNavToggle() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active');
+      });
+      
+      // Cerrar menú al hacer clic en un enlace
+      const navLinks = navMenu.querySelectorAll('.nav-link');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          navToggle.classList.remove('active');
+        });
+      });
+    }
+  }
+  
+  function updateTranslations() {
+    const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (key) {
+        const keys = key.split('.');
+        let value: any = translations[lang];
+        
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        
+        if (value) {
+          element.textContent = value;
+        }
+      }
+    });
+  }
+  
+  setupNavToggle();
+  updateTranslations();
+  
+  document.addEventListener('astro:page-load', () => {
+    setupNavToggle();
+    updateTranslations();
+  });
+  
+  window.addEventListener('languageChanged', updateTranslations);
+</script>

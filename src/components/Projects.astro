@@ -1,0 +1,243 @@
+---
+// Componente Projects - Sección de proyectos
+interface Project {
+  title: string;
+  description: string;
+  technologies: string[];
+  link?: string;
+  github?: string;
+}
+
+const projects: Project[] = [
+    // Cambiar 1
+  {
+    title: "E-Commerce Platform",
+    description: "Plataforma de comercio electrónico completa con carrito de compras, pagos integrados y panel de administración.",
+    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+    link: "#",
+    github: "#"
+  },
+  {
+    title: "JunStats",
+    description: "Aplicación de gestión de un equipo de baloncesto. Con estadísticas avanzadas, jugadas, calendario de partidos y galería de imágenes.",
+    technologies: ["Astro", "Supabase", "Vercel"],
+    link: "https://junstats.vercel.app",
+    github: "https://github.com/eloypgweb/JunStats"
+  },
+    // Cambiar 3
+  {
+    title: "Portfolio Website",
+    description: "Sitio web portfolio minimalista y responsive con animaciones suaves y modo oscuro/claro.",
+    technologies: ["Astro", "TypeScript", "CSS"],
+    link: "#",
+    github: "#"
+  }
+];
+---
+
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title" data-i18n="projects.title">Proyectos</h2>
+      <div class="section-underline"></div>
+      <p class="section-description" data-i18n="projects.description">
+        Algunos de mis proyectos destacados que demuestran mis habilidades y experiencia.
+      </p>
+    </div>
+    
+    <div class="projects-grid">
+      {projects.map((project, index) => (
+        <article class="project-card">
+          <div class="project-content">
+            <h3 class="project-title" data-i18n={`projects.project${index + 1}.title`}>{project.title}</h3>
+            <p class="project-description" data-i18n={`projects.project${index + 1}.description`}>{project.description}</p>
+            
+            <div class="project-technologies">
+              {project.technologies.map((tech) => (
+                <span class="tech-tag">{tech}</span>
+              ))}
+            </div>
+            
+            <div class="project-links">
+              {project.link && (
+                <a href={project.link} class="project-link" target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span data-i18n="projects.demo">Demo</span>
+                </a>
+              )}
+              {project.github && (
+                <a href={project.github} class="project-link" target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                  <span data-i18n="projects.code">Código</span>
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    background-color: var(--bg-primary);
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .section-title {
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .section-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+  
+  .section-description {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: var(--text-md);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .project-card {
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 35px var(--shadow);
+  }
+  
+  .project-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .project-title {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .project-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+  
+  .project-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .tech-tag {
+    font-size: var(--text-xs);
+    padding: 0.25rem 0.75rem;
+    background-color: var(--bg-primary);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+  }
+  
+  .project-links {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+  
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-primary);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: var(--transition);
+  }
+  
+  .project-link:hover {
+    background-color: var(--accent);
+    color: white;
+  }
+  
+  .project-link svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { translations } from '../i18n/translations';
+  
+  function updateTranslations() {
+    const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+    const elements = document.querySelectorAll('[data-i18n]');
+    
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (key) {
+        const keys = key.split('.');
+        let value: any = translations[lang];
+        
+        for (const k of keys) {
+          value = value?.[k];
+        }
+        
+        if (value) {
+          element.textContent = value;
+        }
+      }
+    });
+  }
+  
+  updateTranslations();
+  document.addEventListener('astro:page-load', updateTranslations);
+  window.addEventListener('languageChanged', updateTranslations);
+</script>
