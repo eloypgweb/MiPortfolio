@@ -26,41 +26,48 @@ export const aboutInfo = {
 
 export const projects = [
   {
-    title: "E-Commerce Platform",
-    description: "Plataforma de comercio electrónico completa con carrito de compras, pagos integrados y panel de administración.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-    link: "#",
-    github: "#"
+    title: "Mapfre",
+    description: "Participé activamente en el desarrollo de interfaces en el proyecto de Mapfre Colombia, Brazil, República Dominicana, entre otros...",
+    technologies: ["Angular", "JavaScript", "Backend", "Frontend"],
+    image: "/mapfre.jpg",
+    featured: false
   },
   {
-    title: "Task Management App",
-    description: "Aplicación de gestión de tareas con funcionalidades de colaboración en tiempo real y notificaciones.",
-    technologies: ["Vue.js", "Firebase", "Tailwind CSS"],
-    link: "#",
-    github: "#"
+    title: "JunStats",
+    description: "Aplicación de gestión de un equipo de baloncesto. Con estadísticas avanzadas, jugadas, calendario de partidos y galería de imágenes.",
+    technologies: ["Astro", "Supabase", "Vercel", "TFG"],
+    image: "/junstatsLogo.png", // Placeholder - cambia por tu imagen
+    link: "https://junstats.vercel.app",
+    github: "https://github.com/eloypgweb/JunStats",
+    featured: true // Proyecto destacado
   },
   {
-    title: "Portfolio Website",
-    description: "Sitio web portfolio minimalista y responsive con animaciones suaves y modo oscuro/claro.",
-    technologies: ["Astro", "TypeScript", "CSS"],
-    link: "#",
-    github: "#"
+    title: "Naturgy",
+    description: "Participé en la migración de Naturgy a AEM, desarrollando componentes personalizados y optimizando el rendimiento del sitio.",
+    technologies: ["AEM", "Backend", "Frontend"],
+    image: "/naturgy.jpg", // Placeholder - cambia por tu imagen
+    // Sin link ni github para demostrar que funciona sin ellos
+    featured: false
   }
 ];
 
 export const skills = [
-  { name: "HTML5", icon: "🌐", category: "Frontend" },
-  { name: "CSS3", icon: "🎨", category: "Frontend" },
-  { name: "JavaScript", icon: "⚡", category: "Frontend" },
+  // { name: "HTML5", icon: "🌐", category: "Frontend" },
+  { name: "SCSS", icon: "🎨", category: "Frontend" },
+  // { name: "JavaScript", icon: "⚡", category: "Frontend" },
   { name: "TypeScript", icon: "📘", category: "Frontend" },
   { name: "React", icon: "⚛️", category: "Frontend" },
-  { name: "Vue.js", icon: "💚", category: "Frontend" },
+  // { name: "Vue.js", icon: "💚", category: "Frontend" },
   { name: "Astro", icon: "🚀", category: "Frontend" },
   { name: "Node.js", icon: "🟢", category: "Backend" },
-  { name: "Express", icon: "🚂", category: "Backend" },
-  { name: "MongoDB", icon: "🍃", category: "Backend" },
-  { name: "PostgreSQL", icon: "🐘", category: "Backend" },
+  // { name: "Express", icon: "🚂", category: "Backend" },
+  // { name: "MongoDB", icon: "🍃", category: "Backend" },
+  { name: "Java", icon: "♨️", category: "Backend" },
+  // { name: "PostgreSQL", icon: "🐘", category: "Backend" },
+  { name: "MySQL", icon: "🐬", category: "Backend" },
+  { name: "OracleDB", icon: "🛢️", category: "Backend" },
   { name: "Git", icon: "📦", category: "Tools" },
-  { name: "Docker", icon: "🐳", category: "Tools" },
-  { name: "Figma", icon: "🎯", category: "Tools" }
+  // { name: "Docker", icon: "🐳", category: "Tools" },
+  { name: "Figma", icon: "🎯", category: "Tools" },
+  { name: "Agile", icon: "🤸🏼‍♂️", category: "Tools" }
 ];

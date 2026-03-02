@@ -36,16 +36,16 @@ export const translations = {
       demo: 'Demo',
       code: 'Código',
       project1: {
-        title: 'Proyecto 1',
-        description: 'Una aplicación web completa con autenticación, base de datos y diseño responsivo.',
+        title: 'Mapfre',
+        description: 'Participé activamente en el desarrollo de interfaces en el proyecto de Mapfre Colombia, Brazil, República Dominicana, entre otros...',
       },
       project2: {
         title: 'JunStats',
-        description: 'Una aplicación web para la gestión de un equipo de baloncesto. Con estadísticas avanzadas, jugadas, calendario de partidos y galería de imágenes.',
+        description: 'Aplicación de gestión de un equipo de baloncesto. Con estadísticas avanzadas, jugadas, calendario de partidos y galería de imágenes.',
       },
       project3: {
-        title: 'Proyecto 3',
-        description: 'Un dashboard interactivo con visualización de datos en tiempo real.',
+        title: 'Naturgy',
+        description: 'Participé en la migración de Naturgy a AEM, desarrollando componentes personalizados y optimizando el rendimiento del sitio.',
       },
     },
     
@@ -67,14 +67,6 @@ export const translations = {
       connectTitle: 'Contacta conmigo',
       connectText: 'Siempre estoy abierto a descubrir nuevos mundos y oportunidades. No dudes en contactarme.',
       email: 'Email',
-      formName: 'Nombre',
-      formEmail: 'Email',
-      formMessage: 'Mensaje',
-      formNamePlaceholder: 'Tu nombre',
-      formEmailPlaceholder: 'tu@email.com',
-      formMessagePlaceholder: 'Tu mensaje...',
-      sendMessage: 'Enviar mensaje',
-      successMessage: '¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.',
     },
     
     // Footer
@@ -125,16 +117,16 @@ export const translations = {
       demo: 'Demo',
       code: 'Code',
       project1: {
-        title: 'Project 1',
-        description: 'A complete web application with authentication, database, and responsive design.',
+        title: 'Mapfre',
+        description: 'I actively participated in the development of interfaces in the Mapfre project for Colombia, Brazil, Dominican Republic, among others...',
       },
       project2: {
         title: 'JunStats',
-        description: 'A web application for managing a basketball team. With advanced statistics, plays, match calendar, and image gallery.',
+        description: 'Basketball team management application. With advanced statistics, plays, match calendar, and image gallery.',
       },
       project3: {
-        title: 'Project 3',
-        description: 'An interactive dashboard with real-time data visualization.',
+        title: 'Naturgy',
+        description: 'I participated in the migration of Naturgy to AEM, developing custom components and optimizing site performance.',
       },
     },
     
@@ -156,14 +148,6 @@ export const translations = {
       connectTitle: 'Contact me',
       connectText: 'I\'m always open to discovering new worlds and opportunities. Don\'t hesitate to contact me.',
       email: 'Email',
-      formName: 'Name',
-      formEmail: 'Email',
-      formMessage: 'Message',
-      formNamePlaceholder: 'Your name',
-      formEmailPlaceholder: 'your@email.com',
-      formMessagePlaceholder: 'Your message...',
-      sendMessage: 'Send message',
-      successMessage: 'Thank you for your message! I\'ll get in touch with you soon.',
     },
     
     // Footer
