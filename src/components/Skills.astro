@@ -7,20 +7,23 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: "HTML5", icon: "🌐", category: "Frontend" },
-  { name: "CSS3", icon: "🎨", category: "Frontend" },
-  { name: "JavaScript", icon: "⚡", category: "Frontend" },
+  // { name: "HTML5", icon: "🌐", category: "Frontend" },
+  { name: "SCSS", icon: "🎨", category: "Frontend" },
+  // { name: "JavaScript", icon: "⚡", category: "Frontend" },
   { name: "TypeScript", icon: "📘", category: "Frontend" },
   { name: "React", icon: "⚛️", category: "Frontend" },
-  { name: "Vue.js", icon: "💚", category: "Frontend" },
+  // { name: "Vue.js", icon: "💚", category: "Frontend" },
   { name: "Astro", icon: "🚀", category: "Frontend" },
   { name: "Node.js", icon: "🟢", category: "Backend" },
-  { name: "Express", icon: "🚂", category: "Backend" },
+  // { name: "Express", icon: "🚂", category: "Backend" },
   { name: "MongoDB", icon: "🍃", category: "Backend" },
-  { name: "PostgreSQL", icon: "🐘", category: "Backend" },
+  // { name: "PostgreSQL", icon: "🐘", category: "Backend" },
+  { name: "MySQL", icon: "🐬", category: "Backend" },
+  { name: "OracleDB", icon: "🛢️", category: "Backend" },
   { name: "Git", icon: "📦", category: "Tools" },
-  { name: "Docker", icon: "🐳", category: "Tools" },
-  { name: "Figma", icon: "🎯", category: "Tools" }
+  // { name: "Docker", icon: "🐳", category: "Tools" },
+  { name: "Figma", icon: "🎯", category: "Tools" },
+  { name: "Agile", icon: "🤸🏼‍♂️", category: "Tools" }
 ];
 
 const categories = [...new Set(skills.map(skill => skill.category))];
