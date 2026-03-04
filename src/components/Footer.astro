@@ -210,6 +210,9 @@ const currentYear = new Date().getFullYear();
     elements.forEach(element => {
       const key = element.getAttribute('data-i18n');
       if (key) {
+        // Añadir clase de animación
+        element.classList.add('lang-transition');
+        
         const keys = key.split('.');
         let value: any = translations[lang];
         
@@ -218,13 +221,46 @@ const currentYear = new Date().getFullYear();
         }
         
         if (value) {
-          element.textContent = value;
+          // Actualizar texto en el punto medio de la animación
+          setTimeout(() => {
+            element.textContent = value;
+          }, 300);
         }
+        
+        // Remover clase de animación al finalizar
+        setTimeout(() => {
+          element.classList.remove('lang-transition');
+        }, 600);
       }
     });
   }
   
-  updateTranslations();
-  document.addEventListener('astro:page-load', updateTranslations);
+  let isInitialLoad = true;
+  function handleTranslation() {
+    if (isInitialLoad) {
+      // En la carga inicial, actualizar sin animación
+      const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key) {
+          const keys = key.split('.');
+          let value: any = translations[lang];
+          for (const k of keys) {
+            value = value?.[k];
+          }
+          if (value) {
+            element.textContent = value;
+          }
+        }
+      });
+      isInitialLoad = false;
+    } else {
+      updateTranslations();
+    }
+  }
+  
+  handleTranslation();
+  document.addEventListener('astro:page-load', handleTranslation);
   window.addEventListener('languageChanged', updateTranslations);
 </script>

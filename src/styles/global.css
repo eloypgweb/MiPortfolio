@@ -180,6 +180,30 @@ section {
   animation: fadeInUp 0.6s ease-out;
 }
 
+/* Transición suave para cambios de idioma */
+[data-i18n] {
+  transition: opacity 0.3s ease-in-out;
+}
+
+[data-i18n].lang-transition {
+  animation: langFadeTransition 0.6s ease-in-out;
+}
+
+@keyframes langFadeTransition {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   :root {

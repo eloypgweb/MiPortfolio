@@ -244,6 +244,9 @@ import LanguageToggle from './LanguageToggle.astro';
     elements.forEach(element => {
       const key = element.getAttribute('data-i18n');
       if (key) {
+        // Añadir clase de animación
+        element.classList.add('lang-transition');
+        
         const keys = key.split('.');
         let value: any = translations[lang];
         
@@ -252,18 +255,49 @@ import LanguageToggle from './LanguageToggle.astro';
         }
         
         if (value) {
-          element.textContent = value;
+          // Actualizar texto en el punto medio de la animación
+          setTimeout(() => {
+            element.textContent = value;
+          }, 300);
         }
+        
+        // Remover clase de animación al finalizar
+        setTimeout(() => {
+          element.classList.remove('lang-transition');
+        }, 600);
       }
     });
   }
   
+  let isInitialLoad = true;
+  function handleInitialTranslation() {
+    if (isInitialLoad) {
+      // En la carga inicial, actualizar sin animación
+      const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
+      const elements = document.querySelectorAll('[data-i18n]');
+      elements.forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (key) {
+          const keys = key.split('.');
+          let value: any = translations[lang];
+          for (const k of keys) {
+            value = value?.[k];
+          }
+          if (value) {
+            element.textContent = value;
+          }
+        }
+      });
+      isInitialLoad = false;
+    }
+  }
+  
   setupNavToggle();
-  updateTranslations();
+  handleInitialTranslation();
   
   document.addEventListener('astro:page-load', () => {
     setupNavToggle();
-    updateTranslations();
+    handleInitialTranslation();
   });
   
   window.addEventListener('languageChanged', updateTranslations);
