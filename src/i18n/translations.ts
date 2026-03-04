@@ -67,6 +67,23 @@ export const translations = {
       connectTitle: 'Contacta conmigo',
       connectText: 'Siempre estoy abierto a descubrir nuevos mundos y oportunidades. No dudes en contactarme.',
       email: 'Email',
+      linkedin: 'LinkedIn',
+      linkedinValue: 'Visita mi LinkedIn',
+      github: 'GitHub',
+      githubValue: 'Visita mi GitHub',
+      instagram: 'Instagram',
+      instagramValue: '@eloyypg',
+    },
+
+    // Chatbot
+    chatbot: {
+      title: 'Asistente Virtual',
+      placeholder: 'Escribe tu pregunta...',
+      send: 'Enviar',
+      openChat: 'Abrir chat',
+      closeChat: 'Cerrar chat',
+      typing: 'Escribiendo...',
+      initialMessage: '¡Hola! 👋 Soy el asistente de Eloy. Pregúntame sobre su experiencia, proyectos o habilidades.',
     },
     
     // Footer
@@ -148,6 +165,23 @@ export const translations = {
       connectTitle: 'Contact me',
       connectText: 'I\'m always open to discovering new worlds and opportunities. Don\'t hesitate to contact me.',
       email: 'Email',
+      linkedin: 'LinkedIn',
+      linkedinValue: 'Visit my LinkedIn',
+      github: 'GitHub',
+      githubValue: 'Visit my GitHub',
+      instagram: 'Instagram',
+      instagramValue: '@eloyypg',
+    },
+
+    // Chatbot
+    chatbot: {
+      title: 'Virtual Assistant',
+      placeholder: 'Type your question...',
+      send: 'Send',
+      openChat: 'Open chat',
+      closeChat: 'Close chat',
+      typing: 'Typing...',
+      initialMessage: 'Hello! 👋 I\'m Eloy\'s assistant. Ask me about his experience, projects or skills.',
     },
     
     // Footer

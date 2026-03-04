@@ -29,6 +29,12 @@ const {
   <slot />
   
   <script is:inline>
+    function initLanguage() {
+      const savedLanguage = localStorage.getItem('language');
+      const language = savedLanguage === 'en' ? 'en' : 'es';
+      document.documentElement.setAttribute('lang', language);
+    }
+
     // Inicializar tema desde localStorage o detectar preferencia del sistema
     function initTheme() {
       const savedTheme = localStorage.getItem('theme');
@@ -39,10 +45,17 @@ const {
     }
     
     // Ejecutar inmediatamente para evitar flash
+    initLanguage();
     initTheme();
     
     // Listener para cambios de tema
+    window.addEventListener('languageChanged', (event) => {
+      const lang = event.detail?.lang === 'en' ? 'en' : 'es';
+      document.documentElement.setAttribute('lang', lang);
+    });
+
     document.addEventListener('astro:page-load', initTheme);
+    document.addEventListener('astro:page-load', initLanguage);
   </script>
 </body>
 </html>

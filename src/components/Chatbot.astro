@@ -1,0 +1,475 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<div class="chatbot-container">
+  <!-- Botón flotante para abrir el chat -->
+  <button id="chatbot-toggle" class="chatbot-toggle" aria-label={t('chatbot.openChat')}>
+    <svg class="icon-chat" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <!-- Ventana del chat -->
+  <div id="chatbot-window" class="chatbot-window">
+    <div class="chatbot-header">
+      <h3>{t('chatbot.title')}</h3>
+      <button id="chatbot-close" class="chatbot-close-btn" aria-label={t('chatbot.closeChat')}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div id="chatbot-messages" class="chatbot-messages">
+      <!-- Los mensajes se añadirán aquí dinámicamente -->
+    </div>
+
+    <div class="chatbot-input-container">
+      <input 
+        type="text" 
+        id="chatbot-input" 
+        class="chatbot-input" 
+        placeholder={t('chatbot.placeholder')}
+        autocomplete="off"
+      />
+      <button id="chatbot-send" class="chatbot-send-btn" aria-label={t('chatbot.send')}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .chatbot-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1000;
+  }
+
+  .chatbot-toggle {
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    box-shadow: 0 6px 20px var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--bg-primary);
+    line-height: 0;
+    appearance: none;
+  }
+
+  .chatbot-toggle:hover {
+    transform: scale(1.1);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+
+  .chatbot-toggle svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    stroke: currentColor;
+  }
+
+  .chatbot-toggle .icon-close {
+    display: none;
+  }
+
+  .chatbot-toggle.active .icon-chat {
+    display: none;
+  }
+
+  .chatbot-toggle.active .icon-close {
+    display: block;
+  }
+
+  .chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 380px;
+    height: 500px;
+    background: var(--bg-primary);
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .chatbot-window.active {
+    display: flex;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .chatbot-header {
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chatbot-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+
+  .chatbot-close-btn {
+    background: transparent;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+    line-height: 0;
+    appearance: none;
+  }
+
+  .chatbot-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .chatbot-messages::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .chatbot-messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chatbot-messages::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  .chatbot-input-container {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.5rem;
+    background: var(--bg-primary);
+  }
+
+  .chatbot-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .chatbot-input:focus {
+    border-color: var(--accent);
+  }
+
+  .chatbot-send-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: var(--bg-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    line-height: 0;
+    appearance: none;
+  }
+
+  .chatbot-send-btn:hover {
+    transform: scale(1.05);
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+
+  .chatbot-send-btn:active {
+    transform: scale(0.95);
+  }
+
+  .chatbot-send-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    stroke: currentColor;
+  }
+
+  /* Estilos de los mensajes (se aplican dinámicamente) */
+  :global(.message) {
+    max-width: 80%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  :global(.message.bot) {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    align-self: flex-start;
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  :global(.message.user) {
+    background: var(--accent);
+    color: var(--bg-primary);
+    align-self: flex-end;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  :global(.message.typing) {
+    display: flex;
+    gap: 0.25rem;
+    padding: 1rem;
+  }
+
+  :global(.typing-dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: typing 1.4s infinite;
+  }
+
+  :global(.typing-dot:nth-child(2)) {
+    animation-delay: 0.2s;
+  }
+
+  :global(.typing-dot:nth-child(3)) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typing {
+    0%, 60%, 100% {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+    30% {
+      transform: translateY(-10px);
+      opacity: 1;
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .chatbot-window {
+      width: calc(100vw - 2rem);
+      height: 70vh;
+      max-height: 500px;
+    }
+
+    .chatbot-container {
+      bottom: 1rem;
+      right: 1rem;
+    }
+
+    .chatbot-toggle {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .chatbot-window {
+      width: 340px;
+    }
+  }
+</style>
+
+<script>
+  import { findResponse, initialMessages } from '../data/chatbot';
+  
+  const chatbotToggle = document.getElementById('chatbot-toggle');
+  const chatbotWindow = document.getElementById('chatbot-window');
+  const chatbotClose = document.getElementById('chatbot-close');
+  const chatbotInput = document.getElementById('chatbot-input') as HTMLInputElement;
+  const chatbotSend = document.getElementById('chatbot-send');
+  const chatbotMessages = document.getElementById('chatbot-messages');
+
+  // Detectar idioma actual
+  function getCurrentLang(): 'es' | 'en' {
+    const storedLang = localStorage.getItem('language');
+    if (storedLang === 'en' || storedLang === 'es') return storedLang;
+
+    const htmlLang = document.documentElement.lang;
+    return htmlLang === 'en' ? 'en' : 'es';
+  }
+
+  // Estado del chat
+  let isOpen = false;
+  let hasInitialMessage = false;
+
+  // Función para añadir mensaje al chat
+  function addMessage(text: string, isBot: boolean) {
+    if (!chatbotMessages) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isBot ? 'bot' : 'user'}`;
+    messageDiv.textContent = text;
+    chatbotMessages.appendChild(messageDiv);
+    
+    // Scroll al final
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  // Función para mostrar indicador de "escribiendo"
+  function showTypingIndicator() {
+    if (!chatbotMessages) return;
+    
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot typing';
+    typingDiv.id = 'typing-indicator';
+    typingDiv.innerHTML = `
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+      <span class="typing-dot"></span>
+    `;
+    chatbotMessages.appendChild(typingDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  // Función para eliminar indicador de "escribiendo"
+  function removeTypingIndicator() {
+    const typingIndicator = document.getElementById('typing-indicator');
+    if (typingIndicator) {
+      typingIndicator.remove();
+    }
+  }
+
+  // Función para enviar mensaje
+  function sendMessage() {
+    if (!chatbotInput || !chatbotInput.value.trim()) return;
+    
+    const userMessage = chatbotInput.value.trim();
+    
+    // Añadir mensaje del usuario
+    addMessage(userMessage, false);
+    
+    // Limpiar input
+    chatbotInput.value = '';
+    
+    // Mostrar indicador de escribiendo
+    showTypingIndicator();
+    
+    // Simular delay de respuesta (más realista)
+    setTimeout(() => {
+      removeTypingIndicator();
+      
+      // Buscar y añadir respuesta del bot
+      const botResponse = findResponse(userMessage, getCurrentLang());
+      addMessage(botResponse, true);
+    }, 800 + Math.random() * 700); // Delay aleatorio entre 800-1500ms
+  }
+
+  // Toggle chat
+  function toggleChat() {
+    isOpen = !isOpen;
+    chatbotToggle?.classList.toggle('active');
+    chatbotWindow?.classList.toggle('active');
+    
+    // Añadir mensaje inicial la primera vez que se abre
+    if (isOpen && !hasInitialMessage) {
+      setTimeout(() => {
+        const initialMsg = initialMessages[getCurrentLang()];
+        addMessage(initialMsg, true);
+        hasInitialMessage = true;
+      }, 300);
+    }
+    
+    // Focus en el input cuando se abre
+    if (isOpen) {
+      setTimeout(() => chatbotInput?.focus(), 300);
+    }
+  }
+
+  // Event listeners
+  chatbotToggle?.addEventListener('click', toggleChat);
+  chatbotClose?.addEventListener('click', toggleChat);
+  
+  chatbotSend?.addEventListener('click', sendMessage);
+  
+  chatbotInput?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  // Cerrar al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (isOpen && 
+        !chatbotWindow?.contains(target) && 
+        !chatbotToggle?.contains(target)) {
+      toggleChat();
+    }
+  });
+</script>
