@@ -1,14 +1,14 @@
 // Datos del Portfolio - Personaliza esta información con tus datos
 
 export const personalInfo = {
-  name: "Tu Nombre",
+  name: "Eloy Pérez",
   role: "Desarrollador Web Full Stack",
   greeting: "Hola, soy",
   description: "Creando experiencias web excepcionales con tecnologías modernas. Especializado en desarrollo frontend y backend, con pasión por el diseño limpio y el código eficiente.",
-  email: "tu@email.com",
-  linkedin: "https://linkedin.com/in/tu-perfil",
-  github: "https://github.com/tu-usuario",
-  twitter: "https://twitter.com/tu-usuario",
+  email: "eloyperezgomez2004@email.com",
+  linkedin: "https://linkedin.com/in/eloy-perez-gomez",
+  github: "https://github.com/eloypgweb",
+  // twitter: "https://twitter.com/tu-usuario",
 };
 
 export const aboutInfo = {
@@ -26,28 +26,64 @@ export const aboutInfo = {
 
 export const projects = [
   {
+    i18nKey: "junstats",
+    title: "JunStats",
+    description: "Aplicación de gestión de un equipo de baloncesto. Con estadísticas avanzadas, jugadas, calendario de partidos y galería de imágenes.",
+    technologies: ["Astro", "Supabase", "Vercel", "TFG"],
+    image: "/junstatsLogo.png",
+    link: "https://junstats.vercel.app",
+    github: "https://github.com/eloypgweb/JunStats",
+    featured: true,
+    category: "personal"
+  },
+  {
+    i18nKey: "habitly",
+    title: "Habitly",
+    description: "App para la gestión y prganización de tareas y hábitos diarios. Con vista diaria, semanal y mensual. ¡Cuenta con perfil propio y logros!",
+    technologies: ["Hábitos", "Astro", "Supabase", "Vercel"],
+    image: "/habitly.png",
+    link: "https://thehabitlyapp.vercel.app",
+    github: "https://github.com/eloypgweb/habitly",
+    featured: false,
+    category: "personal"
+  },
+  {
+    i18nKey: "generador",
+    title: "Generador para JunStats",
+    description: "Aplicación para generar jornadas de baloncesto de forma automática. Con opciones de personalización, generación rápida y exportación en varios formatos.",
+    technologies: ["Facilidad", "Conversión", "Astro", "Vercel"],
+    image: "/generadorjornadas.png",
+    link: "https://generadorjornadasjunstats.vercel.app",
+    github: "https://github.com/eloypgweb/GeneradorJornadas",
+    featured: false,
+    category: "personal"
+  },
+  {
+    i18nKey: "mapfre",
     title: "Mapfre",
     description: "Participé activamente en el desarrollo de interfaces en el proyecto de Mapfre Colombia, Brazil, República Dominicana, entre otros...",
     technologies: ["Angular", "JavaScript", "Backend", "Frontend"],
     image: "/mapfre.jpg",
-    featured: false
+    featured: false,
+    category: "company"
   },
   {
-    title: "JunStats",
-    description: "Aplicación de gestión de un equipo de baloncesto. Con estadísticas avanzadas, jugadas, calendario de partidos y galería de imágenes.",
-    technologies: ["Astro", "Supabase", "Vercel", "TFG"],
-    image: "/junstatsLogo.png", // Placeholder - cambia por tu imagen
-    link: "https://junstats.vercel.app",
-    github: "https://github.com/eloypgweb/JunStats",
-    featured: true // Proyecto destacado
+    i18nKey: "coffice",
+    title: "Coffice",
+    description: "Desarrollo de interfaces y funcionalidades para la aplicación de gestión de productos y ventas. También desarollé servicios en la aplicación COFEM, de la cual se alimenta.",
+    technologies: ["React", "OracleDB", "Spring Boot", "Backend", "Frontend"],
+    image: "/logoCOFFICE.png",
+    featured: false,
+    category: "company"
   },
   {
+    i18nKey: "naturgy",
     title: "Naturgy",
     description: "Participé en la migración de Naturgy a AEM, desarrollando componentes personalizados y optimizando el rendimiento del sitio.",
     technologies: ["AEM", "Backend", "Frontend"],
-    image: "/naturgy.jpg", // Placeholder - cambia por tu imagen
-    // Sin link ni github para demostrar que funciona sin ellos
-    featured: false
+    image: "/naturgy.jpg",
+    featured: false,
+    category: "company"
   }
 ];
 

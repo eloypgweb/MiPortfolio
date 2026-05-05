@@ -1,8 +1,9 @@
 ---
-// Componente Projects - Sección de proyectos
+// Componente Projects - Seccion de proyectos
 import { projects as portfolioProjects } from '../data/portfolio';
 
 interface Project {
+  i18nKey: string;
   title: string;
   description: string;
   technologies: string[];
@@ -10,10 +11,24 @@ interface Project {
   link?: string;
   github?: string;
   featured?: boolean;
+  category?: string;
 }
 
-// Limitar a solo 3 proyectos
-const projects: Project[] = portfolioProjects.slice(0, 3);
+const personalProjectsRaw: Project[] = portfolioProjects
+  .filter((project) => project.category !== 'company')
+  .slice(0, 3);
+
+const featuredIndex = personalProjectsRaw.findIndex((project) => project.featured);
+const personalProjects: Project[] = [...personalProjectsRaw];
+
+if (featuredIndex > -1 && personalProjects.length >= 3) {
+  const [featuredProject] = personalProjects.splice(featuredIndex, 1);
+  personalProjects.splice(1, 0, featuredProject);
+}
+
+const companyProjects: Project[] = portfolioProjects.filter(
+  (project) => project.category === 'company'
+);
 ---
 
 <section class="projects" id="projects">
@@ -25,50 +40,93 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
         Algunos de mis proyectos destacados que demuestran mis habilidades y experiencia.
       </p>
     </div>
-    
-    <div class="projects-grid">
-      {projects.map((project, index) => (
-        <article class={`project-card ${project.featured ? 'featured' : ''}`}>
-          <div class="project-content">
-            <h3 class="project-title" data-i18n={`projects.project${index + 1}.title`}>{project.title}</h3>
-            <p class="project-description" data-i18n={`projects.project${index + 1}.description`}>{project.description}</p>
-            
-            <div class="project-image-wrapper">
-              <img src={project.image} alt={project.title} loading="lazy" class="project-image" />
-            </div>
-            
-            <div class="project-technologies">
-              {project.technologies.map((tech) => (
-                <span class="tech-tag">{tech}</span>
-              ))}
-            </div>
-            
-            {(project.link || project.github) && (
-              <div class="project-links">
-                {project.link && (
-                  <a href={project.link} class="project-link" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                      <polyline points="15 3 21 3 21 9"></polyline>
-                      <line x1="10" y1="14" x2="21" y2="3"></line>
-                    </svg>
-                    <span data-i18n="projects.demo">Demo</span>
-                  </a>
-                )}
-                {project.github && (
-                  <a href={project.github} class="project-link" target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                    <span data-i18n="projects.code">Código</span>
-                  </a>
-                )}
+
+    <div class="projects-group">
+      <div class="group-header">
+        <h3 class="group-title" data-i18n="projects.featuredTitle">Proyectos principales</h3>
+        <p class="group-description" data-i18n="projects.featuredDescription">
+          Proyectos personales donde puedo mostrar producto, arquitectura y decisiones tecnicas end-to-end.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        {personalProjects.map((project) => (
+          <article class={`project-card ${project.featured ? 'featured' : ''}`}>
+            <div class="project-content">
+              <h3 class="project-title" data-i18n={`projects.items.${project.i18nKey}.title`}>{project.title}</h3>
+              <p class="project-description" data-i18n={`projects.items.${project.i18nKey}.description`}>{project.description}</p>
+
+              <div class="project-image-wrapper">
+                <img src={project.image} alt={project.title} loading="lazy" class="project-image" />
               </div>
-            )}
-          </div>
-        </article>
-      ))}
+
+              <div class="project-technologies">
+                {project.technologies.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+
+              {(project.link || project.github) && (
+                <div class="project-links">
+                  {project.link && (
+                    <a href={project.link} class="project-link" target="_blank" rel="noopener noreferrer">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                      <span data-i18n="projects.demo">Demo</span>
+                    </a>
+                  )}
+                  {project.github && (
+                    <a href={project.github} class="project-link" target="_blank" rel="noopener noreferrer">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                      </svg>
+                      <span data-i18n="projects.code">Codigo</span>
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
+
+    {companyProjects.length > 0 && (
+      <div class="projects-group company-group">
+        <div class="group-header">
+          <h3 class="group-title" data-i18n="projects.companyTitle">Proyectos en empresa</h3>
+          <p class="group-description" data-i18n="projects.companyDescription">
+            Participaciones en entornos corporativos con foco en impacto real y colaboracion con equipos multidisciplinares.
+          </p>
+        </div>
+
+        <div class="company-grid">
+          {companyProjects.map((project) => (
+            <article class="company-card">
+              <div class="company-image-wrapper">
+                <img src={project.image} alt={project.title} loading="lazy" class="company-image" />
+              </div>
+              <div class="company-content">
+                <h4 class="company-title" data-i18n={`projects.items.${project.i18nKey}.title`}>{project.title}</h4>
+                <p class="company-description" data-i18n={`projects.items.${project.i18nKey}.description`}>{project.description}</p>
+                <div class="project-technologies">
+                  {project.technologies.map((tech) => (
+                    <span class="tech-tag">{tech}</span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p class="company-note" data-i18n="projects.companyNote">
+          Por confidencialidad, se muestran sin enlaces publicos ni detalles sensibles.
+        </p>
+      </div>
+    )}
   </div>
 </section>
 
@@ -76,18 +134,18 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
   .projects {
     background-color: var(--bg-primary);
   }
-  
+
   .section-header {
     text-align: center;
     margin-bottom: var(--spacing-lg);
   }
-  
+
   .section-title {
     font-size: var(--text-2xl);
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
   }
-  
+
   .section-underline {
     width: 80px;
     height: 4px;
@@ -95,7 +153,7 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     margin: 0 auto;
     border-radius: 2px;
   }
-  
+
   .section-description {
     margin-top: var(--spacing-md);
     color: var(--text-secondary);
@@ -104,14 +162,33 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     margin-left: auto;
     margin-right: auto;
   }
-  
+
+  .projects-group {
+    margin-top: var(--spacing-lg);
+  }
+
+  .group-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .group-title {
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .group-description {
+    color: var(--text-secondary);
+    max-width: 780px;
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-md);
     align-items: start;
   }
-  
+
   .project-card {
     background-color: var(--bg-secondary);
     border-radius: var(--radius-lg);
@@ -122,40 +199,39 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     overflow: hidden;
     height: 100%;
   }
-  
+
   .project-card:hover {
     transform: translateY(-8px);
     border-color: var(--accent);
     box-shadow: 0 15px 35px var(--shadow);
   }
-  
-  /* Proyecto destacado (centro) - más grande y con brillo */
+
   .project-card.featured {
     transform: scale(1.08);
     border: 1px solid var(--border);
     box-shadow: 0 0 40px rgba(var(--accent-rgb, 99, 102, 241), 0.4),
-                0 20px 40px var(--shadow);
+      0 20px 40px var(--shadow);
   }
-  
+
   .project-card.featured:hover {
     transform: scale(1.08) translateY(-8px);
     border-color: var(--accent);
     box-shadow: 0 0 50px rgba(var(--accent-rgb, 99, 102, 241), 0.5),
-                0 25px 50px var(--shadow);
+      0 25px 50px var(--shadow);
   }
-  
+
   .project-card.featured .project-title {
     color: var(--accent);
     font-size: calc(var(--text-lg) * 1.15);
   }
-  
+
   .project-content {
     display: flex;
     flex-direction: column;
     padding: var(--spacing-md);
     gap: var(--spacing-sm);
   }
-  
+
   .project-image-wrapper {
     width: 100%;
     display: flex;
@@ -164,7 +240,7 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     padding: var(--spacing-sm) 0;
     margin: var(--spacing-sm) 0;
   }
-  
+
   .project-image {
     max-width: 100%;
     height: auto;
@@ -173,34 +249,34 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     border-radius: var(--radius-md);
     transition: var(--transition);
   }
-  
+
   .project-card.featured .project-image {
     max-height: 150px;
   }
-  
+
   .project-card:hover .project-image {
     transform: scale(1.05);
   }
-  
+
   .project-title {
     font-size: var(--text-lg);
     color: var(--text-primary);
     margin-bottom: 0;
   }
-  
+
   .project-description {
     color: var(--text-secondary);
     line-height: 1.6;
     flex-grow: 1;
   }
-  
+
   .project-technologies {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-xs);
     margin-top: auto;
   }
-  
+
   .tech-tag {
     font-size: var(--text-xs);
     padding: 0.25rem 0.75rem;
@@ -210,13 +286,13 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     border-radius: var(--radius-sm);
     font-weight: 500;
   }
-  
+
   .project-links {
     display: flex;
     gap: var(--spacing-sm);
     padding-top: var(--spacing-sm);
   }
-  
+
   .project-link {
     display: inline-flex;
     align-items: center;
@@ -230,82 +306,157 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
     font-weight: 600;
     transition: var(--transition);
   }
-  
+
   .project-link:hover {
     background-color: var(--accent);
     color: white;
   }
-  
+
   .project-link svg {
     width: 16px;
     height: 16px;
   }
-  
-  /* Responsive */
+
+  .company-group {
+    padding: var(--spacing-md);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  }
+
+  .company-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .company-card {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: var(--spacing-sm);
+    align-items: start;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-secondary);
+    transition: var(--transition);
+  }
+
+  .company-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 20px var(--shadow);
+  }
+
+  .company-image-wrapper {
+    width: 84px;
+    height: 84px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2d3748;
+    border: 1px solid var(--border);
+  }
+
+  .company-image {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+  }
+
+  .company-title {
+    margin-bottom: 0.35rem;
+    color: var(--text-primary);
+    font-size: var(--text-md);
+  }
+
+  .company-description {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--text-sm);
+  }
+
+  .company-note {
+    margin-top: var(--spacing-md);
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    font-style: italic;
+  }
+
   @media (max-width: 1024px) {
     .projects-grid {
       grid-template-columns: 1fr;
       gap: var(--spacing-lg);
     }
-    
+
+    .company-grid {
+      grid-template-columns: 1fr;
+    }
+
     .project-card.featured {
       transform: scale(1);
       box-shadow: 0 0 30px rgba(var(--accent-rgb, 99, 102, 241), 0.3),
-                  0 15px 30px var(--shadow);
+        0 15px 30px var(--shadow);
     }
-    
+
     .project-card.featured:hover {
       transform: translateY(-8px);
     }
   }
-  
+
   @media (max-width: 768px) {
     .project-image,
     .project-card.featured .project-image {
       max-height: 150px;
+    }
+
+    .company-card {
+      grid-template-columns: 1fr;
+    }
+
+    .company-image-wrapper {
+      width: 72px;
+      height: 72px;
     }
   }
 </style>
 
 <script>
   import { translations } from '../i18n/translations';
-  
+
   function updateTranslations() {
     const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
     const elements = document.querySelectorAll('[data-i18n]');
-    
+
     elements.forEach(element => {
       const key = element.getAttribute('data-i18n');
       if (key) {
-        // Añadir clase de animación
         element.classList.add('lang-transition');
-        
+
         const keys = key.split('.');
         let value: any = translations[lang];
-        
+
         for (const k of keys) {
           value = value?.[k];
         }
-        
+
         if (value) {
-          // Actualizar texto en el punto medio de la animación
           setTimeout(() => {
             element.textContent = value;
           }, 300);
         }
-        
-        // Remover clase de animación al finalizar
+
         setTimeout(() => {
           element.classList.remove('lang-transition');
         }, 600);
       }
     });
   }
-  
+
   let isInitialLoad = true;
   function handleTranslation() {
     if (isInitialLoad) {
-      // En la carga inicial, actualizar sin animación
       const lang = (localStorage.getItem('language') || 'es') as 'es' | 'en';
       const elements = document.querySelectorAll('[data-i18n]');
       elements.forEach(element => {
@@ -326,7 +477,7 @@ const projects: Project[] = portfolioProjects.slice(0, 3);
       updateTranslations();
     }
   }
-  
+
   handleTranslation();
   document.addEventListener('astro:page-load', handleTranslation);
   window.addEventListener('languageChanged', updateTranslations);
